@@ -98,7 +98,7 @@ void SubscriptionQueue::clear()
   queue_.clear();
   queue_size_ = 0;
 }
-
+// Spin6
 CallbackInterface::CallResult SubscriptionQueue::call()
 {
   // The callback may result in our own destruction.  Therefore, we may need to keep a reference to ourselves
@@ -161,7 +161,7 @@ CallbackInterface::CallResult SubscriptionQueue::call()
 
     SubscriptionCallbackHelperCallParams params;
     params.event = MessageEvent<void const>(msg, i.deserializer->getConnectionHeader(), i.receipt_time, i.nonconst_need_copy, MessageEvent<void const>::CreateFunction());
-    i.helper->call(params);
+    i.helper->call(params); // Spin7
   }
 
   return CallbackInterface::Success;

@@ -119,7 +119,7 @@ const std::string DEFAULT_ERROR_MESSAGE =
 namespace ros
 {
 
-
+// Spin2
 void SingleThreadedSpinner::spin(CallbackQueue* queue)
 {
   if (!queue)
@@ -138,7 +138,7 @@ void SingleThreadedSpinner::spin(CallbackQueue* queue)
   ros::NodeHandle n;
   while (n.ok())
   {
-    queue->callAvailable(timeout);
+    queue->callAvailable(timeout); // Spin3
   }
   spinner_monitor.remove(queue);
 }

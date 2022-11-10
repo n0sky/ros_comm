@@ -399,12 +399,14 @@ if (sub)  // Enter if subscriber is valid
    *  \throws ConflictingSubscriptionException If this node is already subscribed to the same topic with a different datatype
    */
   template<class M, class T>
+  // Sub1
   Subscriber subscribe(const std::string& topic, uint32_t queue_size, void(T::*fp)(M), T* obj, 
                        const TransportHints& transport_hints = TransportHints())
   {
     SubscribeOptions ops;
     ops.template initByFullCallbackType<M>(topic, queue_size, boost::bind(fp, obj, boost::placeholders::_1));
     ops.transport_hints = transport_hints;
+    // Sub2
     return subscribe(ops);
   }
 

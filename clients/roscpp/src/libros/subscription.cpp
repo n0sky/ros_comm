@@ -339,7 +339,7 @@ bool Subscription::pubUpdate(const V_string& new_pubs)
     // this function should never negotiate a self-subscription
     if (XMLRPCManager::instance()->getServerURI() != *i)
     {
-      retval &= negotiateConnection(*i);
+      retval &= negotiateConnection(*i); // Sub10
     }
     else
     {
@@ -730,7 +730,7 @@ bool Subscription::addCallback(const SubscriptionCallbackHelperPtr& helper, cons
       ++nonconst_callbacks_;
     }
 
-    callbacks_.push_back(info);
+    callbacks_.push_back(info); // Sub6
     cached_deserializers_.reserve(callbacks_.size());
 
     // if we have any latched links, we need to immediately schedule callbacks

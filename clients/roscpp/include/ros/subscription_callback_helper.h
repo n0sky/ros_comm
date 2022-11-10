@@ -137,11 +137,11 @@ public:
 
     return VoidConstPtr(msg);
   }
-
+// Spin7
   virtual void call(SubscriptionCallbackHelperCallParams& params)
   {
     Event event(params.event, create_);
-    callback_(ParameterAdapter<P>::getParameter(event));
+    callback_(ParameterAdapter<P>::getParameter(event)); // Spin8
   }
 
   virtual const std::type_info& getTypeInfo()

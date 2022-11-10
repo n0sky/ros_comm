@@ -556,7 +556,7 @@ void removeROSArgs(int argc, const char* const* argv, V_string& args_out)
     }
   }
 }
-
+// Spin1
 void spin()
 {
   SingleThreadedSpinner s;
@@ -565,7 +565,7 @@ void spin()
 
 void spin(Spinner& s)
 {
-  s.spin();
+  s.spin(); // Spin2
 }
 
 void spinOnce()

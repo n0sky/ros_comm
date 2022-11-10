@@ -339,7 +339,7 @@ Subscriber NodeHandle::subscribe(SubscribeOptions& ops)
     }
   }
 
-  if (TopicManager::instance()->subscribe(ops))
+  if (TopicManager::instance()->subscribe(ops)) // Sub3
   {
     Subscriber sub(ops.topic, *this, ops.helper);
 

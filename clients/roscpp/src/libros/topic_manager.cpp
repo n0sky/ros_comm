@@ -195,7 +195,7 @@ bool md5sumsMatch(const std::string& lhs, const std::string& rhs)
   return lhs == "*" || rhs == "*" || lhs == rhs;
 }
 
-bool TopicManager::addSubCallback(const SubscribeOptions& ops)
+bool TopicManager::addSubCallback(const SubscribeOptions& ops) // Sub4
 {
   // spin through the subscriptions and see if we find a match. if so, use it.
   bool found = false;
@@ -233,6 +233,7 @@ bool TopicManager::addSubCallback(const SubscribeOptions& ops)
   }
   else if (found)
   {
+    // Sub5
     if (!sub->addCallback(ops.helper, ops.md5sum, ops.callback_queue, ops.queue_size, ops.tracked_object, ops.allow_concurrent_callbacks))
     {
       return false;
@@ -247,7 +248,7 @@ bool TopicManager::subscribe(const SubscribeOptions& ops)
 {
   boost::mutex::scoped_lock lock(subs_mutex_);
 
-  if (addSubCallback(ops))
+  if (addSubCallback(ops)) // Sub4
   {
     return true;
   }
@@ -278,7 +279,7 @@ bool TopicManager::subscribe(const SubscribeOptions& ops)
   SubscriptionPtr s(boost::make_shared<Subscription>(ops.topic, md5sum, datatype, ops.transport_hints));
   s->addCallback(ops.helper, ops.md5sum, ops.callback_queue, ops.queue_size, ops.tracked_object, ops.allow_concurrent_callbacks);
 
-  if (!registerSubscriber(s, ops.datatype))
+  if (!registerSubscriber(s, ops.datatype)) // Sub7
   {
     ROS_WARN("couldn't register subscriber on topic [%s]", ops.topic.c_str());
     s->shutdown();
@@ -480,7 +481,7 @@ bool TopicManager::registerSubscriber(const SubscriptionPtr& s, const string &da
   args[2] = datatype;
   args[3] = xmlrpc_manager_->getServerURI();
 
-  if (!master::execute("registerSubscriber", args, result, payload, true))
+  if (!master::execute("registerSubscriber", args, result, payload, true)) // Sub8
   {
     return false;
   }
@@ -526,7 +527,7 @@ bool TopicManager::registerSubscriber(const SubscriptionPtr& s, const string &da
     }
   }
 
-  s->pubUpdate(pub_uris);
+  s->pubUpdate(pub_uris); // Sub9
   if (self_subscribed)
   {
     s->addLocalConnection(pub);

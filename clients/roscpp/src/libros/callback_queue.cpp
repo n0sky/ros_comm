@@ -304,7 +304,7 @@ CallbackQueue::CallOneResult CallbackQueue::callOne(ros::WallDuration timeout)
   }
   return res;
 }
-
+// Spin3
 void CallbackQueue::callAvailable(ros::WallDuration timeout)
 {
   setupTLS();
@@ -348,7 +348,7 @@ void CallbackQueue::callAvailable(ros::WallDuration timeout)
 
   while (!tls->callbacks.empty())
   {
-    if (callOneCB(tls) != Empty)
+    if (callOneCB(tls) != Empty) // Spin4
     {
       ++called;
     }
@@ -359,7 +359,7 @@ void CallbackQueue::callAvailable(ros::WallDuration timeout)
     calling_ -= called;
   }
 }
-
+// Spin4
 CallbackQueue::CallOneResult CallbackQueue::callOneCB(TLS* tls)
 {
   // Check for a recursive call.  If recursive, increment the current iterator.  Otherwise
@@ -378,7 +378,7 @@ CallbackQueue::CallOneResult CallbackQueue::callOneCB(TLS* tls)
   ROS_ASSERT(tls->cb_it != tls->callbacks.end());
 
   CallbackInfo info = *tls->cb_it;
-  CallbackInterfacePtr& cb = info.callback;
+  CallbackInterfacePtr& cb = info.callback; // Spin5
 
   IDInfoPtr id_info = getIDInfo(info.removal_id);
   if (id_info)
@@ -407,7 +407,7 @@ CallbackQueue::CallOneResult CallbackQueue::callOneCB(TLS* tls)
       else
       {
         tls->cb_it = tls->callbacks.erase(tls->cb_it);
-        result = cb->call();
+        result = cb->call(); // Spin6
       }
     }
 
